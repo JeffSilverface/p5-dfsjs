@@ -10,9 +10,7 @@ export const Home = () => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-foreground">
-          Monde de Dév
-        </h1>
+        <h1 className="text-3xl font-bold text-foreground">Monde de Dév</h1>
 
         <div className="flex gap-4">
           <Link

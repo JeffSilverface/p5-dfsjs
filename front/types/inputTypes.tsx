@@ -1,4 +1,5 @@
 export type InputFieldProps = {
+  id: string;
   label?: string;
   type?:
     | "text"
