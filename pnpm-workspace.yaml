@@ -1,4 +1,15 @@
 packages:
-  - 'front'
-  - 'back'
-  - 'shared'
+  - front
+  - back
+  - shared
+
+ignoredBuiltDependencies:
+  - msw
+  - sharp
+  - unrs-resolver
+
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - prisma
