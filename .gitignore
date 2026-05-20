@@ -14,7 +14,7 @@ pnpm-debug.log*
 **/.next/
 **/out/
 
-# nest.js / build
+# build outputs
 **/dist/
 **/build/
 

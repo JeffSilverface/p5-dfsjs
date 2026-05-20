@@ -1,8 +1,12 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "files": true
+  },
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolvePackageJsonExports": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,
@@ -12,8 +16,11 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "sourceMap": true,
-    "outDir": "./dist",
+    "noEmit": true,
     "baseUrl": "./",
+    "paths": {
+      "@shared": ["../shared/src"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,

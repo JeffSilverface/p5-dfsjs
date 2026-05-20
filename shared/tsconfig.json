@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "rootDir": "./src",
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
-    "esModuleInterop": true
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "outDir": "./dist"
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
