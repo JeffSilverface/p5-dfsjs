@@ -1,4 +1,4 @@
-export type InputFieldProps = {
+export type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string;
   label?: string;
   type?:
@@ -16,4 +16,5 @@ export type InputFieldProps = {
     | "hidden";
   placeholder?: string;
   description?: string;
+  error?: string;
 };
