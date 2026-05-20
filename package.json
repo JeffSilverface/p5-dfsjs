@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm -r --parallel run dev",
+    "dev": "docker compose up -d --wait && pnpm -r --parallel run dev",
     "build": "pnpm -r run build",
-    "lint": "pnpm -r run lint"
+    "lint": "pnpm -r run lint",
+    "docker:up": "docker compose up -d --wait",
+    "docker:down": "docker compose down"
   },
   "engines": {
     "node": ">=20",
