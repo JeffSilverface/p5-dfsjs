@@ -4,7 +4,7 @@ import { InputField } from "@/components/atoms/inputField";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, LoginDto } from "@p5-dfsjs/shared";
+import { LoginSchema, LoginDto } from "@shared";
 
 export function LoginForm() {
   const {

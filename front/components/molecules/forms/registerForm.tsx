@@ -2,7 +2,7 @@
 
 import { InputField } from "@/components/atoms/inputField";
 import { Button } from "@/components/ui/button";
-import { RegisterDto, RegisterSchema } from "@p5-dfsjs/shared";
+import { RegisterDto, RegisterSchema } from "@shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 

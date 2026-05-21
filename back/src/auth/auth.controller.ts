@@ -5,11 +5,13 @@ import {
   UseGuards,
   Req,
   HttpCode,
+  Get,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { RegisterSchema, type RegisterDto } from '@shared';
 import type { Request } from 'express';
+import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,6 +21,12 @@ export class AuthController {
   async register(@Body() body: unknown) {
     const dto: RegisterDto = RegisterSchema.parse(body);
     return this.authService.register(dto);
+  }
+
+  @Get('me')
+  @UseGuards(AuthenticatedGuard)
+  me(@Req() req: Request) {
+    return req.user;
   }
 
   @Post('login')
