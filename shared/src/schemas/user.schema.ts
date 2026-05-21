@@ -1,12 +1,20 @@
 import { z } from "zod";
 
+const passwordSchema = z
+  .string()
+  .min(8, "Minimum 8 caractères")
+  .regex(/[0-9]/, "Doit contenir au moins un chiffre")
+  .regex(/[a-z]/, "Doit contenir au moins une minuscule")
+  .regex(/[A-Z]/, "Doit contenir au moins une majuscule")
+  .regex(/[^a-zA-Z0-9]/, "Doit contenir au moins un caractère spécial");
+
 export const RegisterSchema = z.object({
   email: z.string().min(1, "L'email est requis").email(),
   username: z
     .string()
     .min(3, "Minimum de 3 caractères")
     .max(30, "Maximum 30 caractères"),
-  password: z.string().min(8),
+  password: passwordSchema,
 });
 
 export const LoginSchema = z.object({
@@ -17,7 +25,7 @@ export const LoginSchema = z.object({
 export const UpdateProfileSchema = z.object({
   username: z.string().min(3).max(30).optional(),
   email: z.string().email().optional(),
-  password: z.string().min(8).optional(),
+  password: passwordSchema.optional(),
 });
 
 export type RegisterDto = z.infer<typeof RegisterSchema>;
