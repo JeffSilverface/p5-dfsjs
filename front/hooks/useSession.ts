@@ -18,5 +18,8 @@ export function useSession() {
     setUser(query.data ?? null)
   }, [query.data, setUser])
 
-  return query
+  return {
+    ...query,
+    isAuthenticated: !!query.data,
+  }
 }

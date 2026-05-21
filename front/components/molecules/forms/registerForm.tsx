@@ -6,11 +6,7 @@ import { RegisterDto, RegisterSchema } from "@p5-dfsjs/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-export function RegisterForm({
-  onSubmit,
-}: {
-  onSubmit: (data: RegisterDto) => void;
-}) {
+export function RegisterForm() {
   const {
     register,
     handleSubmit,
@@ -18,6 +14,10 @@ export function RegisterForm({
   } = useForm<RegisterDto>({
     resolver: zodResolver(RegisterSchema),
   });
+
+  const onSubmit = (data: RegisterDto) => {
+    console.log("register:", data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
