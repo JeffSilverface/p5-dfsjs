@@ -22,6 +22,8 @@ export default function AuthLayout({
             alt="Mdd logo"
             width={200}
             height={100}
+            loading="eager"
+            style={{ height: "auto" }}
           />
         </CardHeader>
         <CardContent className="px-8 pb-4">{children}</CardContent>
