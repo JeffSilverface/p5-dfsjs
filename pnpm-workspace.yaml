@@ -1,6 +1,4 @@
 packages:
-  - front
-  - back
   - shared
 
 ignoredBuiltDependencies:
@@ -9,7 +7,6 @@ ignoredBuiltDependencies:
   - unrs-resolver
 
 onlyBuiltDependencies:
-  - '@nestjs/core'
   - '@prisma/client'
   - '@prisma/engines'
   - bcrypt
