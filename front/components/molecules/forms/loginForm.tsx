@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { InputField } from "@/components/atoms/inputField";
 import { Button } from "@/components/ui/button";
