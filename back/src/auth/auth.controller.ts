@@ -1,15 +1,16 @@
 import {
   Controller,
   Post,
+  Get,
   Body,
   UseGuards,
   Req,
+  Res,
   HttpCode,
-  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterSchema, type RegisterDto } from '@shared';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
@@ -38,10 +39,11 @@ export class AuthController {
 
   @Post('logout')
   @HttpCode(200)
-  logout(@Req() req: Request) {
+  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     req.logout((err) => {
       if (err) throw err;
     });
+    res.clearCookie('connect.sid');
     return { message: 'Logged out' };
   }
 }
