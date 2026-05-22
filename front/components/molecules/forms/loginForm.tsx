@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginDto } from "@shared";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function LoginForm() {
   const {
@@ -15,9 +17,16 @@ export function LoginForm() {
   } = useForm<LoginDto>({ resolver: zodResolver(LoginSchema) });
 
   const { login } = useAuth();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const onSubmit = (data: LoginDto) => {
-    login.mutate(data);
+    login.mutate(data, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["session"] });
+        router.push("/articles");
+      },
+    });
   };
 
   return (
