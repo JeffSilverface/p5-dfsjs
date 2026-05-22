@@ -43,7 +43,7 @@ export class AuthController {
     req.logout((err) => {
       if (err) throw err;
     });
-    res.clearCookie('connect.sid');
+    res.clearCookie('connect.sid', { httpOnly: true, path: '/' });
     return { message: 'Logged out' };
   }
 }

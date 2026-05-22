@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 
 export default function Logout() {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    api.post("/auth/logout", {}).then(() => {
+    fetch("/api/auth/logout", { method: "POST" }).then(() => {
       queryClient.clear();
-      router.push("/login");
+      window.location.replace("/login");
     });
-  }, [queryClient, router]);
+  }, [queryClient]);
 
   return null;
 }
