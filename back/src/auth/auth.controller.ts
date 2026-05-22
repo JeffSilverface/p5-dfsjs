@@ -7,11 +7,11 @@ import {
   HttpCode,
   Get,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { RegisterSchema, type RegisterDto } from '@shared';
 import type { Request } from 'express';
 import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -30,7 +30,7 @@ export class AuthController {
   }
 
   @Post('login')
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   login(@Req() req: Request) {
     return req.user;
