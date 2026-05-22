@@ -13,7 +13,10 @@ async function bootstrap() {
 
   app.use(
     session({
-      store: new PgStore({ conString: config.getOrThrow('DATABASE_URL') }),
+      store: new PgStore({
+        conString: config.getOrThrow('DATABASE_URL'),
+        createTableIfMissing: true,
+      }),
       secret: config.getOrThrow('SESSION_SECRET'),
       resave: false,
       saveUninitialized: false,
