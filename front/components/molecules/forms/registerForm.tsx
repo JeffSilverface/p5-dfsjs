@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { RegisterDto, RegisterSchema } from "@shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/useAuth";
 
 export function RegisterForm() {
   const {
@@ -15,8 +16,10 @@ export function RegisterForm() {
     resolver: zodResolver(RegisterSchema),
   });
 
+  const { register: registerUser } = useAuth();
+
   const onSubmit = (data: RegisterDto) => {
-    console.log("register:", data);
+    registerUser.mutate(data);
   };
 
   return (

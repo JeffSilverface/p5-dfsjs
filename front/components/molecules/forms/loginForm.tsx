@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginDto } from "@shared";
+import { useAuth } from "@/hooks/useAuth";
 
 export function LoginForm() {
   const {
@@ -13,8 +14,10 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<LoginDto>({ resolver: zodResolver(LoginSchema) });
 
+  const { login } = useAuth();
+
   const onSubmit = (data: LoginDto) => {
-    console.log("credentials:", data);
+    login.mutate(data);
   };
 
   return (
@@ -24,6 +27,7 @@ export function LoginForm() {
         label="Email"
         type="email"
         placeholder="Saisir votre Email"
+        autoComplete="email"
         error={errors.email?.message}
         {...register("email")}
       />
@@ -32,6 +36,7 @@ export function LoginForm() {
         label="Mot de passe"
         type="password"
         placeholder="Saisir votre mot de passe"
+        autoComplete="current-password"
         error={errors.password?.message}
         {...register("password")}
       />
