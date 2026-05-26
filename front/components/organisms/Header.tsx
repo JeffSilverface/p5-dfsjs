@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { HeaderLinks } from "./HeaderLinks";
-import { BurgerMenu } from "./BurgerMenu";
+import { HeaderLinks } from "../molecules/HeaderLinks";
+import { BurgerMenu } from "../molecules/BurgerMenu";
 
 export function Header() {
   return (
