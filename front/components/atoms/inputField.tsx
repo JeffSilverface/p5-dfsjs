@@ -17,7 +17,7 @@ export function InputField({
     <Field>
       {label && <FieldLabel htmlFor={id}>{label}</FieldLabel>}
       <Input id={id} type={type} placeholder={placeholder} {...rest} />
-      {error && <FieldError>{error}</FieldError>}
+      {error && <FieldError data-testid={`${id}-error`}>{error}</FieldError>}
       {description && <FieldDescription>{description}</FieldDescription>}
     </Field>
   );

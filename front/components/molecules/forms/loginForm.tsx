@@ -1,7 +1,9 @@
 "use client";
 
 import { InputField } from "@/components/atoms/inputField";
+import { FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginDto } from "@shared";
@@ -30,13 +32,14 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" noValidate>
       <InputField
         id="email"
         label="Email"
         type="email"
         placeholder="Saisir votre Email"
         autoComplete="email"
+        data-testid="login-email"
         error={errors.email?.message}
         {...register("email")}
       />
@@ -46,10 +49,18 @@ export function LoginForm() {
         type="password"
         placeholder="Saisir votre mot de passe"
         autoComplete="current-password"
+        data-testid="login-password"
         error={errors.password?.message}
         {...register("password")}
       />
-      <Button type="submit">Se connecter</Button>
+      {login.isError && (
+        <FieldError data-testid="login-error" className="text-center">
+          Connexion impossible : Identifiants invalides
+        </FieldError>
+      )}
+      <Button type="submit" data-testid="login-submit" disabled={login.isPending}>
+        {login.isPending ? <Loader2 className="animate-spin" /> : "Se connecter"}
+      </Button>
     </form>
   );
 }

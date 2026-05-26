@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { ZodExceptionFilter } from './common/filters/zod-exception.filter';
 import session from 'express-session';
 import passport from 'passport';
 import connectPgSimple from 'connect-pg-simple';
@@ -34,6 +35,8 @@ async function bootstrap() {
     origin: config.getOrThrow<string>('FRONTEND_URL'),
     credentials: true,
   });
+
+  app.useGlobalFilters(new ZodExceptionFilter());
 
   const port = config.get<number>('PORT') ?? 3001;
   await app.listen(port);
