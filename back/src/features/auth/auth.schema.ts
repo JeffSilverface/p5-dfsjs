@@ -8,10 +8,23 @@ const passwordSchema = z
   .regex(/[A-Z]/, 'Must contain at least one uppercase letter')
   .regex(/[^a-zA-Z0-9]/, 'Must contain at least one special character');
 
+export const RegisterSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Invalid email'),
+  username: z.string().min(3, 'Minimum 3 characters').max(30, 'Maximum 30 characters'),
+  password: passwordSchema,
+});
+
+export const LoginSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Invalid email'),
+  password: z.string().min(1, 'Password is required'),
+});
+
 export const UpdateProfileSchema = z.object({
   username: z.string().min(3, 'Minimum 3 characters').max(30, 'Maximum 30 characters').optional(),
   email: z.string().email('Invalid email').optional(),
   password: passwordSchema.optional(),
 });
 
+export type RegisterDto = z.infer<typeof RegisterSchema>;
+export type LoginDto = z.infer<typeof LoginSchema>;
 export type UpdateProfileDto = z.infer<typeof UpdateProfileSchema>;

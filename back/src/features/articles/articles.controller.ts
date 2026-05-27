@@ -10,7 +10,7 @@ import {
 import { ArticlesService } from './articles.service';
 import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { SessionUser } from '@shared';
+import { SessionUser } from '../auth/auth.types';
 import { CreateArticleDto, UpdateArticleDto } from './articles.schema';
 
 @Controller('articles')

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { api } from "@/lib/api";
 import { useUIStore } from "@/store/ui.store";
-import type { SessionUser } from "@shared";
+import type { SessionUser } from "@/types/user.types";
 
 export function useSession() {
   const setUser = useUIStore((state) => state.setUser);

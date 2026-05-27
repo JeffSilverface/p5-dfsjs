@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import type { SessionUser } from "@shared";
+import type { SessionUser } from "@/types/user.types";
 
 type UIStore = {
   user: SessionUser | null;

@@ -1,4 +1,4 @@
-import type { ArticleWithRelations } from '@p5-dfsjs/shared'
+import type { ArticleWithRelations } from '@/types/article.types'
 
 export const fakeArticles: ArticleWithRelations[] = [
   {
