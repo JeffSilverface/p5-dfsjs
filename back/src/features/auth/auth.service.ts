@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { RegisterDto } from './auth.schema';
+import { RegisterDto, UpdateProfileDto } from './auth.schema';
 import type { SessionUser } from './auth.types';
 import * as bcrypt from 'bcrypt';
 
@@ -33,6 +33,25 @@ export class AuthService {
       data: { email: dto.email, username: dto.username, password: hashed },
     });
 
+    return { id: user.id, email: user.email, username: user.username };
+  }
+
+  async updateProfile(
+    userId: string,
+    dto: UpdateProfileDto,
+  ): Promise<SessionUser> {
+    if (dto.username) {
+      const exists = await this.prisma.user.findFirst({
+        where: { AND: [{ id: { not: userId } }, { username: dto.username }] },
+      });
+      if (exists) throw new ConflictException('Username already taken');
+    }
+
+    const data: Record<string, unknown> = {};
+    if (dto.username) data.username = dto.username;
+    if (dto.password) data.password = await bcrypt.hash(dto.password, 10);
+
+    const user = await this.prisma.user.update({ where: { id: userId }, data });
     return { id: user.id, email: user.email, username: user.username };
   }
 }

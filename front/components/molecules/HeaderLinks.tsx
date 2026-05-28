@@ -15,13 +15,15 @@ export function HeaderLinks() {
         Se déconnecter
       </Link>
       <Separator className="md:hidden mt-auto" />
-      <Avatar size="lg">
-        <AvatarImage
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Atkinson_Rowan_crop.jpg/250px-Atkinson_Rowan_crop.jpg"
-          alt="Mr Bean"
-        />
-        <AvatarFallback>RA</AvatarFallback>
-      </Avatar>
+      <Link href="/profile">
+        <Avatar size="lg" className="cursor-pointer hover:ring-2 hover:ring-purple-500">
+          <AvatarImage
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Atkinson_Rowan_crop.jpg/250px-Atkinson_Rowan_crop.jpg"
+            alt="Mr Bean"
+          />
+          <AvatarFallback>RA</AvatarFallback>
+        </Avatar>
+      </Link>
     </nav>
   );
 }

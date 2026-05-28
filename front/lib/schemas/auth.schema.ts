@@ -19,5 +19,13 @@ export const LoginSchema = z.object({
   password: z.string().min(1, 'Le mot de passe est requis'),
 });
 
+export const UpdateUserSchema = z.object({
+  username: z.string().min(3, 'Minimum 3 caractères').max(30, 'Maximum 30 caractères'),
+  password: passwordSchema
+    .optional()
+    .or(z.literal('')),
+});
+
 export type RegisterDto = z.infer<typeof RegisterSchema>;
 export type LoginDto = z.infer<typeof LoginSchema>;
+export type UpdateUserDto = z.infer<typeof UpdateUserSchema>;

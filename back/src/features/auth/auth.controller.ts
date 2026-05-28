@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Patch,
   Get,
   Body,
   UseGuards,
@@ -9,10 +10,12 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSchema, type RegisterDto } from './auth.schema';
+import { RegisterSchema, type RegisterDto, UpdateProfileSchema, type UpdateProfileDto } from './auth.schema';
 import type { Request, Response } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Public } from '../../common/decorators/public.decorator';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import type { SessionUser } from './auth.types';
 
 @Controller('auth')
 export class AuthController {
@@ -36,6 +39,15 @@ export class AuthController {
   @HttpCode(200)
   login(@Req() req: Request) {
     return req.user;
+  }
+
+  @Patch('profile')
+  updateProfile(
+    @Body() body: unknown,
+    @CurrentUser() user: SessionUser,
+  ) {
+    const dto: UpdateProfileDto = UpdateProfileSchema.parse(body);
+    return this.authService.updateProfile(user.id, dto);
   }
 
   @Post('logout')
