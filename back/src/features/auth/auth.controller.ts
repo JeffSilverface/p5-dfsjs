@@ -9,28 +9,29 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSchema, type RegisterDto } from '@shared';
+import { RegisterSchema, type RegisterDto } from './auth.schema';
 import type { Request, Response } from 'express';
-import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { Public } from '../../common/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @Public()
   async register(@Body() body: unknown) {
     const dto: RegisterDto = RegisterSchema.parse(body);
     return this.authService.register(dto);
   }
 
   @Get('me')
-  @UseGuards(AuthenticatedGuard)
   me(@Req() req: Request) {
     return req.user;
   }
 
   @Post('login')
+  @Public()
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
   login(@Req() req: Request) {

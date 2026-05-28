@@ -9,15 +9,15 @@ import request from 'supertest';
 import type { Request } from 'express';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { AuthenticatedGuard } from '../common/guards/authenticated.guard';
+import { AuthenticatedGuard } from '../../common/guards/authenticated.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import {
   mockUser,
   mockSessionUser,
   mockRegisterDto,
-} from '../__fixtures__/user.fixture';
-import { mockAuthService } from '../__fixtures__/auth.fixture';
-import { ZodExceptionFilter } from '../common/filters/zod-exception.filter';
+} from '../../__fixtures__/user.fixture';
+import { mockAuthService } from '../../__fixtures__/auth.fixture';
+import { ZodExceptionFilter } from '../../common/filters/zod-exception.filter';
 
 describe('AuthController', () => {
   let app: INestApplication;

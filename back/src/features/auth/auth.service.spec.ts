@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { mockUser } from '../__fixtures__/user.fixture';
-import { mockPrisma } from '../__fixtures__/prisma.fixture';
+import { mockUser } from '../../__fixtures__/user.fixture';
+import { mockPrisma } from '../../__fixtures__/prisma.fixture';
 
 jest.mock('bcrypt');
 

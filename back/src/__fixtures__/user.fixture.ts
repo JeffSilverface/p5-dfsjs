@@ -1,3 +1,5 @@
+import type { RegisterDto } from '../features/auth/auth.schema';
+
 export const mockUser = {
   id: 'uuid-1',
   email: 'test@test.com',
@@ -12,8 +14,6 @@ export const mockSessionUser = {
   email: mockUser.email,
   username: mockUser.username,
 };
-
-import type { RegisterDto } from '@shared';
 
 export const mockRegisterDto: RegisterDto = {
   email: 'new@test.com',

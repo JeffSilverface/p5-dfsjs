@@ -26,7 +26,6 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/passport": "^11",
     "@nestjs/platform-express": "^11.0.1",
-    "@p5-dfsjs/shared": "workspace:*",
     "@prisma/client": "^6",
     "bcrypt": "^6.0.0",
     "connect-pg-simple": "^10",
@@ -70,6 +69,9 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
@@ -86,8 +88,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^@shared$": "<rootDir>/../../shared/src"
-    }
+    "moduleNameMapper": {}
   }
 }

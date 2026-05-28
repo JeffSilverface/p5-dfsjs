@@ -3,9 +3,9 @@ import {
   ConflictException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { RegisterDto } from '@shared';
-import type { SessionUser } from '@shared';
+import { PrismaService } from '../../prisma/prisma.service';
+import { RegisterDto } from './auth.schema';
+import type { SessionUser } from './auth.types';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

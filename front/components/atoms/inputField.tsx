@@ -2,7 +2,7 @@
 
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { InputFieldProps } from "@/types/inputTypes";
+import { InputFieldProps } from "@/types/input.types";
 
 export function InputField({
   id,
