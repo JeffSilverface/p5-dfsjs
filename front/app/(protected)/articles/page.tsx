@@ -15,7 +15,7 @@ export default function Articles() {
   return (
     <div>
       <Link href="/articles/new">
-        <Button className="mb-4">Ajouter un article</Button>
+        <Button className="mb-4">Créer un article</Button>
       </Link>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {articles?.map((article) => (
