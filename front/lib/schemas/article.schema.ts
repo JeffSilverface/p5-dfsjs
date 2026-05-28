@@ -9,7 +9,4 @@ export const CreateArticleSchema = z.object({
   topicId: z.string().uuid("Thème invalide"),
 });
 
-export const UpdateArticleSchema = CreateArticleSchema.partial();
-
 export type CreateArticleDto = z.infer<typeof CreateArticleSchema>;
-export type UpdateArticleDto = z.infer<typeof UpdateArticleSchema>;
