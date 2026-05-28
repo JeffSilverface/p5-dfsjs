@@ -1,7 +1,6 @@
 packages:
   - front
   - back
-  - shared
 
 ignoredBuiltDependencies:
   - msw
