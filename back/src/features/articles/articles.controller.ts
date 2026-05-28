@@ -8,7 +8,6 @@ import {
   Body,
 } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
-import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { SessionUser } from '../auth/auth.types';
 import { CreateArticleDto, UpdateArticleDto } from './articles.schema';
@@ -17,13 +16,11 @@ import { CreateArticleDto, UpdateArticleDto } from './articles.schema';
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 
-  @Public()
   @Get()
   getArticles() {
     return this.articlesService.getArticles();
   }
 
-  @Public()
   @Get(':id')
   getArticle(@Param('id') id: string) {
     return this.articlesService.getArticle(id);

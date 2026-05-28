@@ -32,21 +32,21 @@ async function main() {
       data: {
         email: 'alice@example.com',
         username: 'alice',
-        password: await hash('password123'),
+        password: await hash('Password1!'),
       },
     }),
     prisma.user.create({
       data: {
         email: 'bob@example.com',
         username: 'bob',
-        password: await hash('password123'),
+        password: await hash('Password1!'),
       },
     }),
     prisma.user.create({
       data: {
         email: 'charlie@example.com',
         username: 'charlie',
-        password: await hash('password123'),
+        password: await hash('Password1!'),
       },
     }),
   ]);
@@ -104,7 +104,7 @@ async function main() {
       data: {
         title: 'Guards et interceptors NestJS',
         content:
-          'Les guards gèrent l'autorisation, les interceptors transforment requêtes/réponses. Différences et cas d\'usage.',
+          "Les guards gèrent l'autorisation, les interceptors transforment requêtes/réponses. Différences et cas d'usage.",
         authorId: charlie.id,
         topicId: nest.id,
       },
