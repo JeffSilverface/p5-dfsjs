@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function NewArticle() {
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="flex flex-row items-center mb-4">
+      <div className="flex flex-row items-center mb-4 gap-x-2">
         <Link href="/articles">
           <Button className="" variant={"ghost"} size="sm">
             <ArrowLeftIcon />

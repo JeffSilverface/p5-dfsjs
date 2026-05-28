@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { ArticlesModule } from './features/articles/articles.module';
 import { TopicsModule } from './features/topics/topics.module';
+import { CommentsModule } from './features/comments/comments.module';
 import { AuthenticatedGuard } from './common/guards/authenticated.guard';
 import { AuthModule } from './features/auth/auth.module';
 
@@ -14,6 +15,7 @@ import { AuthModule } from './features/auth/auth.module';
     AuthModule,
     ArticlesModule,
     TopicsModule,
+    CommentsModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AuthenticatedGuard }],
 })

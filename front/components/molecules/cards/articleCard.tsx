@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -12,12 +13,13 @@ type ArticleCardProps = {
 
 export function ArticleCard({ article }: ArticleCardProps) {
   return (
-    <Card className="bg-gray-100">
+    <Link href={`/articles/${article.id}`}>
+    <Card className="bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
       <CardHeader>
         <h2 className="text-lg font-bold">{article.title}</h2>
       </CardHeader>
       <CardContent>
-        <p className="text-md">{article.content}</p>
+        <p className="text-md line-clamp-3">{article.content}</p>
       </CardContent>
       <CardFooter>
         <span className="flex-1 text-sm">{article.author.username}</span>
@@ -26,5 +28,6 @@ export function ArticleCard({ article }: ArticleCardProps) {
         </span>
       </CardFooter>
     </Card>
+    </Link>
   );
 }

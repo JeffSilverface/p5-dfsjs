@@ -7,6 +7,7 @@ type UIStore = {
   isMenuOpen: boolean;
   setUser: (user: SessionUser | null) => void;
   toggleMenu: () => void;
+  closeMenu: () => void;
 };
 
 export const useUIStore = create<UIStore>()(
@@ -21,6 +22,7 @@ export const useUIStore = create<UIStore>()(
           false,
           "toggleMenu",
         ),
+      closeMenu: () => set({ isMenuOpen: false }, false, "closeMenu"),
     }),
     { name: "UI Store" },
   ),
