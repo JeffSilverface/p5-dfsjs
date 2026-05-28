@@ -3,7 +3,9 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { InputField } from "@/components/atoms/inputField";
+import { FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 import { useUIStore } from "@/store/ui.store";
@@ -28,15 +30,20 @@ export function UserForm() {
     if (user) reset({ username: user.username, password: "" });
   }, [user, reset]);
 
+  const updateProfile = useMutation({
+    mutationFn: (payload: Partial<UpdateUserDto>) =>
+      api.patch<SessionUser>("/auth/profile", payload),
+    onSuccess: (updated) => setUser(updated),
+  });
+
   if (!user) return <p>Chargement...</p>;
 
-  const onSubmit = async (data: UpdateUserDto) => {
+  const onSubmit = (data: UpdateUserDto) => {
     const payload = {
       username: data.username,
       ...(data.password ? { password: data.password } : {}),
     };
-    const updated = await api.patch<SessionUser>("/auth/profile", payload);
-    setUser(updated);
+    updateProfile.mutate(payload);
   };
 
   return (
@@ -64,8 +71,13 @@ export function UserForm() {
         error={errors.password?.message}
         {...register("password")}
       />
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+      {updateProfile.isError && (
+        <FieldError className="text-center">
+          Une erreur est survenue. Veuillez réessayer.
+        </FieldError>
+      )}
+      <Button type="submit" disabled={isSubmitting || updateProfile.isPending}>
+        {updateProfile.isPending ? "Enregistrement..." : "Enregistrer"}
       </Button>
     </form>
   );

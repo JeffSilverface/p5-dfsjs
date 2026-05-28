@@ -71,6 +71,11 @@ export function NewArticleForm() {
         {errors.content && <FieldError>{errors.content.message}</FieldError>}
       </Field>
 
+      {createArticle.isError && (
+        <FieldError className="text-center">
+          Une erreur est survenue. Veuillez réessayer.
+        </FieldError>
+      )}
       <Button type="submit" disabled={createArticle.isPending}>
         {createArticle.isPending ? "Création..." : "Créer l'article"}
       </Button>
