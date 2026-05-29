@@ -10,7 +10,12 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterSchema, type RegisterDto, UpdateProfileSchema, type UpdateProfileDto } from './auth.schema';
+import {
+  RegisterSchema,
+  type RegisterDto,
+  UpdateProfileSchema,
+  type UpdateProfileDto,
+} from './auth.schema';
 import type { Request, Response } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Public } from '../../common/decorators/public.decorator';
@@ -42,10 +47,7 @@ export class AuthController {
   }
 
   @Patch('profile')
-  updateProfile(
-    @Body() body: unknown,
-    @CurrentUser() user: SessionUser,
-  ) {
+  updateProfile(@Body() body: unknown, @CurrentUser() user: SessionUser) {
     const dto: UpdateProfileDto = UpdateProfileSchema.parse(body);
     return this.authService.updateProfile(user.id, dto);
   }
