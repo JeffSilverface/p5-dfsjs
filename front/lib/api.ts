@@ -22,7 +22,8 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     throw new Error(error.message ?? 'Request failed')
   }
 
-  return res.json() as Promise<T>
+  const text = await res.text()
+  return (text ? JSON.parse(text) : undefined) as T
 }
 
 export const api = {

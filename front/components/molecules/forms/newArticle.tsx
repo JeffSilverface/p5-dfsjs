@@ -48,7 +48,7 @@ export function NewArticleForm() {
             </option>
           ))}
         </select>
-        {errors.topicId && <FieldError>{errors.topicId.message}</FieldError>}
+        {errors.topicId && <FieldError data-testid="topicId-error">{errors.topicId.message}</FieldError>}
       </Field>
 
       <InputField
@@ -68,7 +68,7 @@ export function NewArticleForm() {
           className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
           {...register("content")}
         />
-        {errors.content && <FieldError>{errors.content.message}</FieldError>}
+        {errors.content && <FieldError data-testid="content-error">{errors.content.message}</FieldError>}
       </Field>
 
       {createArticle.isError && (
@@ -76,7 +76,7 @@ export function NewArticleForm() {
           Une erreur est survenue. Veuillez réessayer.
         </FieldError>
       )}
-      <Button type="submit" disabled={createArticle.isPending}>
+      <Button type="submit" data-testid="article-submit" disabled={createArticle.isPending}>
         {createArticle.isPending ? "Création..." : "Créer l'article"}
       </Button>
     </form>

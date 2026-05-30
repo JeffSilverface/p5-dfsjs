@@ -5,6 +5,7 @@ import { CreateArticleDto } from './articles.schema';
 const ARTICLE_INCLUDE = {
   author: { select: { id: true, username: true } },
   topic: { select: { id: true, name: true } },
+  _count: { select: { comments: true } },
 } as const;
 
 @Injectable()

@@ -31,6 +31,7 @@ export function TopicCard({ topic, onUnsubscribe, isUnsubscribing }: TopicCardPr
         {onUnsubscribe ? (
           <Button
             variant="destructive"
+            data-testid={`unsubscribe-${topic.id}`}
             disabled={isUnsubscribing}
             onClick={() => onUnsubscribe(topic.id)}
           >
@@ -38,6 +39,7 @@ export function TopicCard({ topic, onUnsubscribe, isUnsubscribing }: TopicCardPr
           </Button>
         ) : (
           <Button
+            data-testid={`subscribe-${topic.id}`}
             disabled={topic.isSubscribed || subscribe.isPending}
             className={topic.isSubscribed ? "bg-gray-400 hover:bg-gray-400" : ""}
             onClick={() => subscribe.mutate(topic.id)}
