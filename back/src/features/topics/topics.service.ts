@@ -25,6 +25,9 @@ export class TopicsService {
   }
 
   async subscribe(topicId: string, userId: string) {
+    const topic = await this.prisma.topic.findUnique({ where: { id: topicId } });
+    if (!topic) throw new NotFoundException('Topic not found');
+
     const exists = await this.prisma.subscription.findUnique({
       where: { userId_topicId: { userId, topicId } },
     });
