@@ -13,7 +13,10 @@ export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getPosts() {
-    return this.prisma.article.findMany({ include: POST_INCLUDE });
+    return this.prisma.article.findMany({
+      include: POST_INCLUDE,
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   async getPost(id: string) {

@@ -13,12 +13,12 @@ type PostCardProps = {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <Link href={`/post/${post.id}`}>
-      <Card className="bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
+    <Link href={`/post/${post.id}`} className="h-full">
+      <Card className="h-full flex flex-col bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
         <CardHeader>
           <h2 className="text-lg font-bold">{post.title}</h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1">
           <p className="text-md line-clamp-3">{post.content}</p>
         </CardContent>
         <CardFooter>
