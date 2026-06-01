@@ -9,7 +9,7 @@ export default function Logout() {
   useEffect(() => {
     fetch("/api/auth/logout", { method: "POST" }).then(() => {
       queryClient.clear();
-      window.location.replace("/login");
+      window.location.replace("/");
     });
   }, [queryClient]);
 

@@ -15,7 +15,7 @@ export default function AuthLayout({
 }) {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md m-4 md:m-0">
         <CardHeader className="flex items-center justify-center">
           <Image
             src="/images/mdd.svg"
