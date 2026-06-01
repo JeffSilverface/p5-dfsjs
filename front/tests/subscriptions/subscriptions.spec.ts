@@ -3,7 +3,8 @@ import { test, expect } from "@playwright/test";
 test.describe.configure({ mode: "serial" });
 
 test.describe("subscriptions", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await page.goto("/login");
     await page
       .getByTestId("login-email")
@@ -12,7 +13,7 @@ test.describe("subscriptions", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await page.waitForURL("/articles");
+    await page.waitForURL("/feed");
   });
 
   test("subscribed topic appears in profile", async ({ page }) => {

@@ -26,19 +26,23 @@ export function LoginForm() {
     login.mutate(data, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["session"] });
-        router.push("/articles");
+        router.push("/feed");
       },
     });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6" noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-6"
+      noValidate
+    >
       <InputField
         id="email"
         label="Email"
         type="email"
         placeholder="Saisir votre Email"
-        autoComplete="email"
+        autoComplete="username email"
         data-testid="login-email"
         error={errors.email?.message}
         {...register("email")}
@@ -58,8 +62,16 @@ export function LoginForm() {
           Connexion impossible : Identifiants invalides
         </FieldError>
       )}
-      <Button type="submit" data-testid="login-submit" disabled={login.isPending}>
-        {login.isPending ? <Loader2 className="animate-spin" /> : "Se connecter"}
+      <Button
+        type="submit"
+        data-testid="login-submit"
+        disabled={login.isPending}
+      >
+        {login.isPending ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          "Se connecter"
+        )}
       </Button>
     </form>
   );

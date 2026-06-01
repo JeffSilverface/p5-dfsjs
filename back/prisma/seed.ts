@@ -12,10 +12,16 @@ async function main() {
 
   const topics = await Promise.all([
     prisma.topic.create({
-      data: { name: 'JavaScript', description: 'Tout sur JS et son écosystème' },
+      data: {
+        name: 'JavaScript',
+        description: 'Tout sur JS et son écosystème',
+      },
     }),
     prisma.topic.create({
-      data: { name: 'TypeScript', description: 'Typage statique pour JavaScript' },
+      data: {
+        name: 'TypeScript',
+        description: 'Typage statique pour JavaScript',
+      },
     }),
     prisma.topic.create({
       data: { name: 'NestJS', description: 'Framework Node.js progressif' },
@@ -122,7 +128,7 @@ async function main() {
       data: {
         title: 'Optimiser les re-renders React',
         content:
-          'useMemo, useCallback, memo — quand les utiliser vraiment et quand ils créent plus de problèmes qu\'ils n\'en résolvent.',
+          "useMemo, useCallback, memo — quand les utiliser vraiment et quand ils créent plus de problèmes qu'ils n'en résolvent.",
         authorId: bob.id,
         topicId: react.id,
       },
@@ -132,12 +138,20 @@ async function main() {
   await Promise.all([
     prisma.subscription.create({ data: { userId: alice.id, topicId: js.id } }),
     prisma.subscription.create({ data: { userId: alice.id, topicId: ts.id } }),
-    prisma.subscription.create({ data: { userId: alice.id, topicId: react.id } }),
+    prisma.subscription.create({
+      data: { userId: alice.id, topicId: react.id },
+    }),
     prisma.subscription.create({ data: { userId: bob.id, topicId: js.id } }),
     prisma.subscription.create({ data: { userId: bob.id, topicId: nest.id } }),
-    prisma.subscription.create({ data: { userId: charlie.id, topicId: ts.id } }),
-    prisma.subscription.create({ data: { userId: charlie.id, topicId: nest.id } }),
-    prisma.subscription.create({ data: { userId: charlie.id, topicId: react.id } }),
+    prisma.subscription.create({
+      data: { userId: charlie.id, topicId: ts.id },
+    }),
+    prisma.subscription.create({
+      data: { userId: charlie.id, topicId: nest.id },
+    }),
+    prisma.subscription.create({
+      data: { userId: charlie.id, topicId: react.id },
+    }),
   ]);
 
   console.log('Seed terminé : 4 topics, 3 users, 8 articles, 8 subscriptions');

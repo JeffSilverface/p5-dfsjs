@@ -3,7 +3,7 @@ import path from 'path';
 
 export default async function globalTeardown() {
   const root = path.resolve(__dirname, '../../');
-  execSync('pnpm --filter @p5-dfsjs/back exec tsx src/scripts/delete-test-articles.ts', {
+  execSync('pnpm --filter @p5-dfsjs/back exec tsx src/scripts/delete-test-posts.ts', {
     cwd: root,
     stdio: 'inherit',
   });

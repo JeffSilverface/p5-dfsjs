@@ -47,6 +47,7 @@ describe('TopicsService', () => {
 
   describe('subscribe', () => {
     it('creates subscription when not already subscribed', async () => {
+      mockPrisma.topic.findUnique.mockResolvedValue(mockTopic);
       mockPrisma.subscription.findUnique.mockResolvedValue(null);
       mockPrisma.subscription.create.mockResolvedValue(mockSubscription);
 
@@ -59,6 +60,7 @@ describe('TopicsService', () => {
     });
 
     it('throws ConflictException when already subscribed', async () => {
+      mockPrisma.topic.findUnique.mockResolvedValue(mockTopic);
       mockPrisma.subscription.findUnique.mockResolvedValue(mockSubscription);
 
       await expect(service.subscribe(mockTopic.id, 'uuid-1')).rejects.toThrow(

@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { api } from "@/lib/api";
 import { useUIStore } from "@/store/ui.store";
 import type { SessionUser } from "@/types/user.types";
+import { protectedRoutes } from "@/lib/middleware/routes";
 
 export function useSession() {
   const setUser = useUIStore((state) => state.setUser);
   const router = useRouter();
+  const pathname = usePathname();
 
   const query = useQuery({
     queryKey: ["session"],
@@ -21,7 +23,8 @@ export function useSession() {
   }, [query.data, setUser]);
 
   useEffect(() => {
-    if (query.isError) router.push("/login");
+    const isProtected = protectedRoutes.some((r) => pathname.startsWith(r));
+    if (query.isError && isProtected) router.push("/login");
   }, [query.isError, router]);
 
   return {

@@ -17,19 +17,19 @@ test.describe("authenticated user", () => {
     await setSessionCookie(context);
   });
 
-  test("can access /articles", async ({ page }) => {
-    await page.goto("/articles");
-    await expect(page).toHaveURL("/articles");
+  test("can access /feed", async ({ page }) => {
+    await page.goto("/feed");
+    await expect(page).toHaveURL("/feed");
   });
 
-  test("can access /articles/new", async ({ page }) => {
-    await page.goto("/articles/new");
-    await expect(page).toHaveURL("/articles/new");
+  test("can access /post/new", async ({ page }) => {
+    await page.goto("/post/new");
+    await expect(page).toHaveURL("/post/new");
   });
 
-  test("can access /articles/[id]", async ({ page }) => {
-    await page.goto("/articles/123");
-    await expect(page).toHaveURL("/articles/123");
+  test("can access /post/[id]", async ({ page }) => {
+    await page.goto("/post/123");
+    await expect(page).toHaveURL("/post/123");
   });
 
   test("can access /topics", async ({ page }) => {
@@ -47,19 +47,19 @@ test.describe("authenticated user", () => {
     await expect(page).toHaveURL("/logout");
   });
 
-  test("redirects / to /articles", async ({ page }) => {
+  test("redirects / to /feed", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveURL("/articles");
+    await expect(page).toHaveURL("/feed");
   });
 
-  test("redirects /login to /articles", async ({ page }) => {
+  test("redirects /login to /feed", async ({ page }) => {
     await page.goto("/login");
-    await expect(page).toHaveURL("/articles");
+    await expect(page).toHaveURL("/feed");
   });
 
-  test("redirects /register to /articles", async ({ page }) => {
+  test("redirects /register to /feed", async ({ page }) => {
     await page.goto("/register");
-    await expect(page).toHaveURL("/articles");
+    await expect(page).toHaveURL("/feed");
   });
 });
 
@@ -68,18 +68,18 @@ test.describe("unauthenticated user", () => {
     await context.clearCookies();
   });
 
-  test("redirects /articles to /", async ({ page }) => {
-    await page.goto("/articles");
+  test("redirects /feed to /", async ({ page }) => {
+    await page.goto("/feed");
     await expect(page).toHaveURL("/");
   });
 
-  test("redirects /articles/new to /", async ({ page }) => {
-    await page.goto("/articles/new");
+  test("redirects /post/new to /", async ({ page }) => {
+    await page.goto("/post/new");
     await expect(page).toHaveURL("/");
   });
 
-  test("redirects /articles/[id] to /", async ({ page }) => {
-    await page.goto("/articles/123");
+  test("redirects /post/[id] to /", async ({ page }) => {
+    await page.goto("/post/123");
     await expect(page).toHaveURL("/");
   });
 
