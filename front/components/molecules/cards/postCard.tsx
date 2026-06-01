@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import type { PostWithRelations } from "@/types/post.types";
 
 type PostCardProps = {
@@ -8,7 +13,7 @@ type PostCardProps = {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <Link href={`/feed/${post.id}`}>
+    <Link href={`/post/${post.id}`}>
       <Card className="bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer">
         <CardHeader>
           <h2 className="text-lg font-bold">{post.title}</h2>

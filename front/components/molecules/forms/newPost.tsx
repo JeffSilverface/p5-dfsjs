@@ -44,14 +44,16 @@ export function NewPostForm() {
           ))}
         </select>
         {errors.topicId && (
-          <FieldError data-testid="topicId-error">{errors.topicId.message}</FieldError>
+          <FieldError data-testid="topicId-error">
+            {errors.topicId.message}
+          </FieldError>
         )}
       </Field>
 
       <InputField
         id="title"
         label="Titre"
-        placeholder="Titre du post"
+        placeholder="Titre de l'article"
         error={errors.title?.message}
         {...register("title")}
       />
@@ -61,12 +63,14 @@ export function NewPostForm() {
         <textarea
           id="content"
           rows={8}
-          placeholder="Contenu du post"
+          placeholder="Contenu de l'article"
           className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
           {...register("content")}
         />
         {errors.content && (
-          <FieldError data-testid="content-error">{errors.content.message}</FieldError>
+          <FieldError data-testid="content-error">
+            {errors.content.message}
+          </FieldError>
         )}
       </Field>
 
@@ -75,8 +79,12 @@ export function NewPostForm() {
           Une erreur est survenue. Veuillez réessayer.
         </FieldError>
       )}
-      <Button type="submit" data-testid="post-submit" disabled={createPost.isPending}>
-        {createPost.isPending ? "Création..." : "Créer le post"}
+      <Button
+        type="submit"
+        data-testid="post-submit"
+        disabled={createPost.isPending}
+      >
+        {createPost.isPending ? "Création..." : "Créer"}
       </Button>
     </form>
   );

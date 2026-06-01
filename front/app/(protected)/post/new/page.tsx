@@ -12,7 +12,7 @@ export default function NewPost() {
             <ArrowLeftIcon />
           </Button>
         </Link>
-        <h1 className="text-2xl font-bold">Nouveau post</h1>
+        <h1 className="text-2xl font-bold">Nouvel article</h1>
       </div>
       <NewPostForm />
     </div>
