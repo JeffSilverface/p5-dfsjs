@@ -18,7 +18,7 @@ export default function Profile() {
         <UserForm />
       </div>
       {subscribedTopics.length > 0 && (
-        <section className="mt-10">
+        <section className="mt-10" data-testid="subscriptions-section">
           <Separator className="m-4" />
           <h2 className="mb-4 text-xl font-semibold text-center">
             Mes abonnements

@@ -13,6 +13,7 @@ async function setSessionCookie(context: BrowserContext) {
 
 test.describe("authenticated user", () => {
   test.beforeEach(async ({ context }) => {
+    await context.clearCookies();
     await setSessionCookie(context);
   });
 
@@ -34,6 +35,11 @@ test.describe("authenticated user", () => {
   test("can access /topics", async ({ page }) => {
     await page.goto("/topics");
     await expect(page).toHaveURL("/topics");
+  });
+
+  test("can access /profile", async ({ page }) => {
+    await page.goto("/profile");
+    await expect(page).toHaveURL("/profile");
   });
 
   test("can access /logout", async ({ page }) => {
@@ -79,6 +85,11 @@ test.describe("unauthenticated user", () => {
 
   test("redirects /topics to /", async ({ page }) => {
     await page.goto("/topics");
+    await expect(page).toHaveURL("/");
+  });
+
+  test("redirects /profile to /", async ({ page }) => {
+    await page.goto("/profile");
     await expect(page).toHaveURL("/");
   });
 

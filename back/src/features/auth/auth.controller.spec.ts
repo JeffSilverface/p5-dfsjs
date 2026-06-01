@@ -35,7 +35,12 @@ describe('AuthController', () => {
         },
       })
       .overrideGuard(AuthenticatedGuard)
-      .useValue({ canActivate: () => true })
+      .useValue({
+        canActivate: (ctx: ExecutionContext) => {
+          ctx.switchToHttp().getRequest<Request>().user = mockSessionUser;
+          return true;
+        },
+      })
       .compile();
 
     app = module.createNestApplication();
@@ -46,6 +51,7 @@ describe('AuthController', () => {
         _res: unknown,
         next: () => void,
       ) => {
+        req.user = mockSessionUser;
         req.logout = (cb: (err: null) => void) => cb(null);
         next();
       },
@@ -126,32 +132,54 @@ describe('AuthController', () => {
 
   describe('GET /auth/me', () => {
     it('returns 200 with authenticated user', async () => {
-      const module: TestingModule = await Test.createTestingModule({
-        controllers: [AuthController],
-        providers: [{ provide: AuthService, useValue: mockAuthService }],
-      })
-        .overrideGuard(LocalAuthGuard)
-        .useValue({ canActivate: () => true })
-        .overrideGuard(AuthenticatedGuard)
-        .useValue({
-          canActivate: (ctx) => {
-            const req = ctx.switchToHttp().getRequest() as {
-              user: typeof mockSessionUser;
-            };
-            req.user = mockSessionUser;
-            return true;
-          },
-        })
-        .compile();
-
-      const authApp = module.createNestApplication();
-      await authApp.init();
-
-      const res = await request(authApp.getHttpServer()).get('/auth/me');
+      const res = await request(app.getHttpServer()).get('/auth/me');
 
       expect(res.status).toBe(200);
       expect(res.body).toEqual(mockSessionUser);
-      await authApp.close();
+    });
+  });
+
+  describe('PATCH /auth/profile', () => {
+    it('returns 200 with updated SessionUser', async () => {
+      const updated = { ...mockSessionUser, username: 'newname' };
+      mockAuthService.updateProfile.mockResolvedValue(updated);
+
+      const res = await request(app.getHttpServer())
+        .patch('/auth/profile')
+        .send({ username: 'newname' });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual(updated);
+      expect(mockAuthService.updateProfile).toHaveBeenCalledWith(
+        mockSessionUser.id,
+        { username: 'newname' },
+      );
+    });
+
+    it('returns 400 when body is invalid', async () => {
+      const res = await request(app.getHttpServer())
+        .patch('/auth/profile')
+        .send({ username: 'ab' });
+
+      expect(res.status).toBe(400);
+    });
+
+    it('returns 400 when email is in the body', async () => {
+      const res = await request(app.getHttpServer())
+        .patch('/auth/profile')
+        .send({ email: 'new@test.com' });
+
+      expect(res.status).toBe(400);
+    });
+
+    it('returns 409 when username already taken', async () => {
+      mockAuthService.updateProfile.mockRejectedValue(new ConflictException());
+
+      const res = await request(app.getHttpServer())
+        .patch('/auth/profile')
+        .send({ username: 'takenname' });
+
+      expect(res.status).toBe(409);
     });
   });
 

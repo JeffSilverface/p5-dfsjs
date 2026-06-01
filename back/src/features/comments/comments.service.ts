@@ -14,7 +14,11 @@ export class CommentsService {
     });
   }
 
-  async createComment(articleId: string, userId: string, dto: CreateCommentDto) {
+  async createComment(
+    articleId: string,
+    userId: string,
+    dto: CreateCommentDto,
+  ) {
     return this.prisma.comment.create({
       data: { content: dto.content, articleId, authorId: userId },
       include: { author: { select: { id: true, username: true } } },

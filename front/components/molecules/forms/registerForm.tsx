@@ -52,7 +52,7 @@ export function RegisterForm() {
         error={errors.password?.message}
         {...register("password")}
       />
-      <Button>Créer un compte</Button>
+      <Button data-testid="register-submit">Créer un compte</Button>
     </form>
   );
 }

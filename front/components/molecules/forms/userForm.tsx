@@ -72,11 +72,11 @@ export function UserForm() {
         {...register("password")}
       />
       {updateProfile.isError && (
-        <FieldError className="text-center">
+        <FieldError data-testid="profile-error" className="text-center">
           Une erreur est survenue. Veuillez réessayer.
         </FieldError>
       )}
-      <Button type="submit" disabled={isSubmitting || updateProfile.isPending}>
+      <Button type="submit" data-testid="profile-submit" disabled={isSubmitting || updateProfile.isPending}>
         {updateProfile.isPending ? "Enregistrement..." : "Enregistrer"}
       </Button>
     </form>

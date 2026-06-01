@@ -10,7 +10,10 @@ const passwordSchema = z
 
 export const RegisterSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email'),
-  username: z.string().min(3, 'Minimum 3 characters').max(30, 'Maximum 30 characters'),
+  username: z
+    .string()
+    .min(3, 'Minimum 3 characters')
+    .max(30, 'Maximum 30 characters'),
   password: passwordSchema,
 });
 
@@ -19,10 +22,16 @@ export const LoginSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-export const UpdateProfileSchema = z.object({
-  username: z.string().min(3, 'Minimum 3 characters').max(30, 'Maximum 30 characters').optional(),
-  password: passwordSchema.optional(),
-});
+export const UpdateProfileSchema = z
+  .object({
+    username: z
+      .string()
+      .min(3, 'Minimum 3 characters')
+      .max(30, 'Maximum 30 characters')
+      .optional(),
+    password: passwordSchema.optional(),
+  })
+  .strict();
 
 export type RegisterDto = z.infer<typeof RegisterSchema>;
 export type LoginDto = z.infer<typeof LoginSchema>;

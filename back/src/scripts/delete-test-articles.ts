@@ -4,7 +4,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   const email = process.env.TEST_USER_EMAIL ?? 'test@test.com';
-  await prisma.user.deleteMany({ where: { email } });
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return;
+
+  await prisma.article.deleteMany({ where: { authorId: user.id } });
 }
 
 main()
