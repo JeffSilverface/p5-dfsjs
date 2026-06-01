@@ -8,15 +8,16 @@ import Link from "next/link";
 export default function Feed() {
   const { data: posts, isLoading, isError } = usePosts();
 
-  if (isLoading) return <p>Chargement...</p>;
-  if (isError) return <p>Erreur lors du chargement des articles.</p>;
-  if (posts?.length === 0) return <p>Aucun article disponible.</p>;
-
   return (
     <div>
       <Link href="/post/new">
-        <Button className="mb-4">Créer un article</Button>
+        <Button className="mb-4">Créer un post</Button>
       </Link>
+      {isLoading && <p>Chargement...</p>}
+      {isError && <p>Erreur lors du chargement des posts.</p>}
+      {!isLoading && !isError && posts?.length === 0 && (
+        <p>Aucun post disponible.</p>
+      )}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {posts?.map((post) => (
           <PostCard key={post.id} post={post} />

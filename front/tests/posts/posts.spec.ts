@@ -62,7 +62,7 @@ test.describe("new post form", () => {
   });
 
   test("creates post and redirects to /feed", async ({ page }) => {
-    await page.locator("#topicId option:nth-child(2)").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#topicId option").length > 1, { timeout: 10000 });
     await page.locator("#topicId").selectOption({ index: 1 });
     await page.locator("#title").fill("Post de test Playwright");
     await page
