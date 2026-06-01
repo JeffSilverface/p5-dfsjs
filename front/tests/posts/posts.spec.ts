@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("posts", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await page.goto("/login");
     await page
       .getByTestId("login-email")
@@ -27,7 +28,8 @@ test.describe("posts", () => {
 });
 
 test.describe("new post form", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await page.goto("/login");
     await page
       .getByTestId("login-email")
@@ -60,6 +62,7 @@ test.describe("new post form", () => {
   });
 
   test("creates post and redirects to /feed", async ({ page }) => {
+    await page.locator("#topicId option:nth-child(2)").waitFor();
     await page.locator("#topicId").selectOption({ index: 1 });
     await page.locator("#title").fill("Post de test Playwright");
     await page.locator("#content").fill("Contenu de test suffisamment long pour passer la validation.");

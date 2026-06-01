@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("topics", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await page.goto("/login");
     await page
       .getByTestId("login-email")
