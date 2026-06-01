@@ -23,7 +23,7 @@ test.describe("posts", () => {
 
   test("navigates to new post page", async ({ page }) => {
     await page.getByRole("link", { name: "Créer un post" }).click();
-    await expect(page).toHaveURL("/feed/new");
+    await expect(page).toHaveURL("/post/new");
   });
 });
 
@@ -39,7 +39,7 @@ test.describe("new post form", () => {
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
     await page.waitForURL("/feed");
-    await page.goto("/feed/new");
+    await page.goto("/post/new");
   });
 
   test("shows validation errors on empty submit", async ({ page }) => {
@@ -65,7 +65,9 @@ test.describe("new post form", () => {
     await page.locator("#topicId option:nth-child(2)").waitFor();
     await page.locator("#topicId").selectOption({ index: 1 });
     await page.locator("#title").fill("Post de test Playwright");
-    await page.locator("#content").fill("Contenu de test suffisamment long pour passer la validation.");
+    await page
+      .locator("#content")
+      .fill("Contenu de test suffisamment long pour passer la validation.");
     await page.getByTestId("post-submit").click();
     await expect(page).toHaveURL("/feed");
   });

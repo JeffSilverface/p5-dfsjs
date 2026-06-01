@@ -73,13 +73,13 @@ test.describe("unauthenticated user", () => {
     await expect(page).toHaveURL("/");
   });
 
-  test("redirects /feed/new to /", async ({ page }) => {
-    await page.goto("/feed/new");
+  test("redirects /post/new to /", async ({ page }) => {
+    await page.goto("/post/new");
     await expect(page).toHaveURL("/");
   });
 
-  test("redirects /feed/[id] to /", async ({ page }) => {
-    await page.goto("/feed/123");
+  test("redirects /post/[id] to /", async ({ page }) => {
+    await page.goto("/post/123");
     await expect(page).toHaveURL("/");
   });
 
