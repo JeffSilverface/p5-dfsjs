@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateArticleSchema = z.object({
+export const CreatePostSchema = z.object({
   title: z
     .string()
     .min(3, "Minimum 3 caractères")
@@ -9,4 +9,4 @@ export const CreateArticleSchema = z.object({
   topicId: z.string().uuid("Thème invalide"),
 });
 
-export type CreateArticleDto = z.infer<typeof CreateArticleSchema>;
+export type CreatePostDto = z.infer<typeof CreatePostSchema>;

@@ -25,7 +25,7 @@ test.describe("login page", () => {
     await expect(page.getByTestId("login-error")).toBeVisible();
   });
 
-  test("redirects to /articles on successful login", async ({ page }) => {
+  test("redirects to /feed on successful login", async ({ page }) => {
     await page
       .getByTestId("login-email")
       .fill(process.env.TEST_USER_EMAIL ?? "test@test.com");
@@ -33,6 +33,6 @@ test.describe("login page", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await expect(page).toHaveURL("/articles");
+    await expect(page).toHaveURL("/feed");
   });
 });

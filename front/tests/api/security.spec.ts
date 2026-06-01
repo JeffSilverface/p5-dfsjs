@@ -15,18 +15,18 @@ test.describe("API security — unauthenticated requests", () => {
     expect(res.status()).toBe(401);
   });
 
-  test("GET /articles returns 401", async ({ request }) => {
-    const res = await request.get(`${API}/articles`);
+  test("GET /posts returns 401", async ({ request }) => {
+    const res = await request.get(`${API}/posts`);
     expect(res.status()).toBe(401);
   });
 
-  test("GET /articles/:id returns 401", async ({ request }) => {
-    const res = await request.get(`${API}/articles/some-id`);
+  test("GET /posts/:id returns 401", async ({ request }) => {
+    const res = await request.get(`${API}/posts/some-id`);
     expect(res.status()).toBe(401);
   });
 
-  test("POST /articles returns 401", async ({ request }) => {
-    const res = await request.post(`${API}/articles`, {
+  test("POST /posts returns 401", async ({ request }) => {
+    const res = await request.post(`${API}/posts`, {
       data: { title: "test", content: "test content here", topicId: "uuid" },
     });
     expect(res.status()).toBe(401);
@@ -47,13 +47,13 @@ test.describe("API security — unauthenticated requests", () => {
     expect(res.status()).toBe(401);
   });
 
-  test("GET /articles/:id/comments returns 401", async ({ request }) => {
-    const res = await request.get(`${API}/articles/some-id/comments`);
+  test("GET /posts/:id/comments returns 401", async ({ request }) => {
+    const res = await request.get(`${API}/posts/some-id/comments`);
     expect(res.status()).toBe(401);
   });
 
-  test("POST /articles/:id/comments returns 401", async ({ request }) => {
-    const res = await request.post(`${API}/articles/some-id/comments`, {
+  test("POST /posts/:id/comments returns 401", async ({ request }) => {
+    const res = await request.post(`${API}/posts/some-id/comments`, {
       data: { content: "test comment" },
     });
     expect(res.status()).toBe(401);

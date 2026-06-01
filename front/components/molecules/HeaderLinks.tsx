@@ -10,7 +10,7 @@ export function HeaderLinks() {
 
   return (
     <nav className="flex flex-col md:flex-row gap-4 items-end md:items-center p-4 md:p-0 h-full">
-      <Link className="hover:text-purple-500" href="/articles" onClick={closeMenu}>
+      <Link className="hover:text-purple-500" href="/feed" onClick={closeMenu}>
         Articles
       </Link>
       <Link className="hover:text-purple-500" href="/topics" onClick={closeMenu}>

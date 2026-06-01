@@ -18,7 +18,7 @@ export function handleAuth(request: NextRequest) {
   }
 
   if (isAuth && session) {
-    return NextResponse.redirect(new URL("/articles", request.url));
+    return NextResponse.redirect(new URL("/feed", request.url));
   }
 
   return NextResponse.next();

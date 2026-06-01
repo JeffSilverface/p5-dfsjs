@@ -1,2 +1,2 @@
-export const protectedRoutes = ['/articles', '/topics', '/profile']
+export const protectedRoutes = ['/feed', '/topics', '/profile']
 export const authRoutes = ['/login', '/register']

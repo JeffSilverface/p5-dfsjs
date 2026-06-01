@@ -10,7 +10,7 @@ test.describe("topics", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await page.waitForURL("/articles");
+    await page.waitForURL("/feed");
     await page.goto("/topics");
   });
 

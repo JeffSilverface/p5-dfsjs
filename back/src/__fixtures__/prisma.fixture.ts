@@ -12,6 +12,7 @@ export const mockPrisma = {
   },
   topic: {
     findMany: jest.fn(),
+    findUnique: jest.fn(),
   },
   subscription: {
     findMany: jest.fn(),

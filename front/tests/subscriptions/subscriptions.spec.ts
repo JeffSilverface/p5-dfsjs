@@ -12,7 +12,7 @@ test.describe("subscriptions", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await page.waitForURL("/articles");
+    await page.waitForURL("/feed");
   });
 
   test("subscribed topic appears in profile", async ({ page }) => {

@@ -4,31 +4,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { InputField } from "@/components/atoms/inputField";
-import { Field } from "@/components/ui/field";
-import { FieldLabel } from "@/components/ui/field";
-import { FieldError } from "@/components/ui/field";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import {
-  CreateArticleSchema,
-  CreateArticleDto,
-} from "@/lib/schemas/article.schema";
-import { useCreateArticle } from "@/hooks/useArticles";
+import { CreatePostSchema, CreatePostDto } from "@/lib/schemas/post.schema";
+import { useCreatePost } from "@/hooks/usePosts";
 import { useTopics } from "@/hooks/useTopics";
 
-export function NewArticleForm() {
+export function NewPostForm() {
   const router = useRouter();
   const { data: topics } = useTopics();
-  const createArticle = useCreateArticle();
+  const createPost = useCreatePost();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateArticleDto>({ resolver: zodResolver(CreateArticleSchema) });
+  } = useForm<CreatePostDto>({ resolver: zodResolver(CreatePostSchema) });
 
-  const onSubmit = (data: CreateArticleDto) => {
-    createArticle.mutate(data, {
-      onSuccess: () => router.push("/articles"),
+  const onSubmit = (data: CreatePostDto) => {
+    createPost.mutate(data, {
+      onSuccess: () => router.push("/feed"),
     });
   };
 
@@ -48,13 +43,15 @@ export function NewArticleForm() {
             </option>
           ))}
         </select>
-        {errors.topicId && <FieldError data-testid="topicId-error">{errors.topicId.message}</FieldError>}
+        {errors.topicId && (
+          <FieldError data-testid="topicId-error">{errors.topicId.message}</FieldError>
+        )}
       </Field>
 
       <InputField
         id="title"
         label="Titre"
-        placeholder="Titre de l'article"
+        placeholder="Titre du post"
         error={errors.title?.message}
         {...register("title")}
       />
@@ -64,20 +61,22 @@ export function NewArticleForm() {
         <textarea
           id="content"
           rows={8}
-          placeholder="Contenu de l'article"
+          placeholder="Contenu du post"
           className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
           {...register("content")}
         />
-        {errors.content && <FieldError data-testid="content-error">{errors.content.message}</FieldError>}
+        {errors.content && (
+          <FieldError data-testid="content-error">{errors.content.message}</FieldError>
+        )}
       </Field>
 
-      {createArticle.isError && (
+      {createPost.isError && (
         <FieldError className="text-center">
           Une erreur est survenue. Veuillez réessayer.
         </FieldError>
       )}
-      <Button type="submit" data-testid="article-submit" disabled={createArticle.isPending}>
-        {createArticle.isPending ? "Création..." : "Créer l'article"}
+      <Button type="submit" data-testid="post-submit" disabled={createPost.isPending}>
+        {createPost.isPending ? "Création..." : "Créer le post"}
       </Button>
     </form>
   );

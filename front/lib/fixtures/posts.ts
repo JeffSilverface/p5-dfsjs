@@ -1,10 +1,10 @@
-import type { ArticleWithRelations } from '@/types/article.types'
+import type { PostWithRelations } from '@/types/post.types';
 
-export const fakeArticles: ArticleWithRelations[] = [
+export const fakePosts: PostWithRelations[] = [
   {
     id: '1',
     title: 'Pourquoi TypeScript change tout en 2025',
-    content: 'TypeScript est devenu incontournable dans l\'écosystème JavaScript...',
+    content: "TypeScript est devenu incontournable dans l'écosystème JavaScript...",
     authorId: 'u1',
     topicId: 't1',
     createdAt: new Date('2025-05-10'),
@@ -40,7 +40,7 @@ export const fakeArticles: ArticleWithRelations[] = [
   {
     id: '4',
     title: 'Prisma ORM : guide complet pour débutants',
-    content: 'Prisma simplifie l\'accès à la base de données avec une API type-safe...',
+    content: "Prisma simplifie l'accès à la base de données avec une API type-safe...",
     authorId: 'u1',
     topicId: 't4',
     createdAt: new Date('2025-05-01'),
@@ -52,7 +52,7 @@ export const fakeArticles: ArticleWithRelations[] = [
   {
     id: '5',
     title: 'Tester son API avec Jest et Supertest',
-    content: 'Les tests d\'intégration sont essentiels pour garantir la fiabilité de votre API...',
+    content: "Les tests d'intégration sont essentiels pour garantir la fiabilité de votre API...",
     authorId: 'u4',
     topicId: 't2',
     createdAt: new Date('2025-04-28'),
@@ -61,4 +61,4 @@ export const fakeArticles: ArticleWithRelations[] = [
     topic: { id: 't2', name: 'Node.js' },
     _count: { comments: 9 },
   },
-]
+];

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("articles", () => {
+test.describe("posts", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/login");
     await page
@@ -10,23 +10,23 @@ test.describe("articles", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await page.waitForURL("/articles");
+    await page.waitForURL("/feed");
   });
 
-  test("articles list page loads", async ({ page }) => {
-    await expect(page).toHaveURL("/articles");
+  test("posts list page loads", async ({ page }) => {
+    await expect(page).toHaveURL("/feed");
     await expect(
-      page.getByRole("link", { name: "Créer un article" }),
+      page.getByRole("link", { name: "Créer un post" }),
     ).toBeVisible();
   });
 
-  test("navigates to new article page", async ({ page }) => {
-    await page.getByRole("link", { name: "Créer un article" }).click();
-    await expect(page).toHaveURL("/articles/new");
+  test("navigates to new post page", async ({ page }) => {
+    await page.getByRole("link", { name: "Créer un post" }).click();
+    await expect(page).toHaveURL("/feed/new");
   });
 });
 
-test.describe("new article form", () => {
+test.describe("new post form", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/login");
     await page
@@ -36,12 +36,12 @@ test.describe("new article form", () => {
       .getByTestId("login-password")
       .fill(process.env.TEST_USER_PASSWORD ?? "Password1!");
     await page.getByTestId("login-submit").click();
-    await page.waitForURL("/articles");
-    await page.goto("/articles/new");
+    await page.waitForURL("/feed");
+    await page.goto("/feed/new");
   });
 
   test("shows validation errors on empty submit", async ({ page }) => {
-    await page.getByTestId("article-submit").click();
+    await page.getByTestId("post-submit").click();
     await expect(page.getByTestId("topicId-error")).toBeVisible();
     await expect(page.getByTestId("title-error")).toBeVisible();
     await expect(page.getByTestId("content-error")).toBeVisible();
@@ -49,21 +49,21 @@ test.describe("new article form", () => {
 
   test("shows error when title is too short", async ({ page }) => {
     await page.locator("#title").fill("ab");
-    await page.getByTestId("article-submit").click();
+    await page.getByTestId("post-submit").click();
     await expect(page.getByTestId("title-error")).toBeVisible();
   });
 
   test("shows error when content is too short", async ({ page }) => {
     await page.locator("#content").fill("court");
-    await page.getByTestId("article-submit").click();
+    await page.getByTestId("post-submit").click();
     await expect(page.getByTestId("content-error")).toBeVisible();
   });
 
-  test("creates article and redirects to /articles", async ({ page }) => {
+  test("creates post and redirects to /feed", async ({ page }) => {
     await page.locator("#topicId").selectOption({ index: 1 });
-    await page.locator("#title").fill("Article de test Playwright");
+    await page.locator("#title").fill("Post de test Playwright");
     await page.locator("#content").fill("Contenu de test suffisamment long pour passer la validation.");
-    await page.getByTestId("article-submit").click();
-    await expect(page).toHaveURL("/articles");
+    await page.getByTestId("post-submit").click();
+    await expect(page).toHaveURL("/feed");
   });
 });

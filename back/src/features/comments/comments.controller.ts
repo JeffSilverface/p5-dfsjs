@@ -4,7 +4,7 @@ import { CreateCommentDto } from './comments.schema';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { SessionUser } from '../auth/auth.types';
 
-@Controller('articles/:articleId/comments')
+@Controller('posts/:articleId/comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
