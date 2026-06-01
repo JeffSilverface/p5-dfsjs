@@ -22,14 +22,14 @@ test.describe("authenticated user", () => {
     await expect(page).toHaveURL("/feed");
   });
 
-  test("can access /feed/new", async ({ page }) => {
-    await page.goto("/feed/new");
-    await expect(page).toHaveURL("/feed/new");
+  test("can access /post/new", async ({ page }) => {
+    await page.goto("/post/new");
+    await expect(page).toHaveURL("/post/new");
   });
 
-  test("can access /feed/[id]", async ({ page }) => {
-    await page.goto("/feed/123");
-    await expect(page).toHaveURL("/feed/123");
+  test("can access /post/[id]", async ({ page }) => {
+    await page.goto("/post/123");
+    await expect(page).toHaveURL("/post/123");
   });
 
   test("can access /topics", async ({ page }) => {
