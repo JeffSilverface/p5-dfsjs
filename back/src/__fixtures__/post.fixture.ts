@@ -1,8 +1,8 @@
-import type { CreateArticleDto } from '../features/articles/articles.schema';
+import type { CreatePostDto } from '../features/posts/posts.schema';
 
-export const mockArticle = {
-  id: 'article-uuid-1',
-  title: 'Test Article',
+export const mockPost = {
+  id: 'post-uuid-1',
+  title: 'Test Post',
   content: 'Content long enough for validation purposes',
   authorId: 'uuid-1',
   topicId: 'topic-uuid-1',
@@ -13,8 +13,8 @@ export const mockArticle = {
   _count: { comments: 0 },
 };
 
-export const mockCreateArticleDto: CreateArticleDto = {
-  title: 'Test Article',
+export const mockCreatePostDto: CreatePostDto = {
+  title: 'Test Post',
   content: 'Content long enough for validation purposes',
   topicId: 'topic-uuid-1',
 };
