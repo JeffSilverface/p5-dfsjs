@@ -1,112 +1,204 @@
-# MDD - Monde de Dév
+# MDD - Monde de Dev
 
-Réseau social pour développeurs
+MDD est un reseau social pour developpeurs. L'application permet de creer un compte, se connecter, s'abonner a des themes de programmation, publier des articles et echanger via des commentaires.
 
-## Description
+Depot GitHub : [JeffSilverface/p5-dfsjs](https://github.com/JeffSilverface/p5-dfsjs)
 
-MDD (Monde de Dév) est une plateforme permettant aux développeurs de s'abonner à des sujets de programmation, publier des articles et échanger via des commentaires.
+## Fonctionnalites
 
-## Getting Started
+- Inscription et connexion utilisateur
+- Session utilisateur avec cookie HTTP-only
+- Modification du profil
+- Liste des themes disponibles
+- Abonnement et desabonnement a des themes
+- Fil d'articles
+- Creation d'articles
+- Consultation d'un article et de ses commentaires
+- Ajout de commentaires
+- Protection des routes cote frontend et backend
 
-### Prerequisites
+## Stack Technique
 
-- Node.js 22+
-- npm ou yarn
-- PostgreSQL
+| Partie          | Technologies                                                           |
+| --------------- | ---------------------------------------------------------------------- |
+| Frontend        | Next.js 16, React 19, TypeScript, Tailwind CSS, shadcn/ui, React Query |
+| Backend         | NestJS 11, TypeScript, Passport, express-session                       |
+| Base de donnees | PostgreSQL 17                                                          |
+| ORM             | Prisma                                                                 |
+| Validation      | Zod                                                                    |
+| Tests           | Jest, Supertest, Playwright                                            |
+| Outillage       | pnpm workspace, Docker Compose                                         |
 
-### Installation
+## Structure Du Projet
 
-```bash
-git clone <repository-url>
-cd P5-DFSJS
-npm install
-```
-
-### Base de données (Docker)
-
-Lancer une instance PostgreSQL en local avec Docker :
-
-```bash
-docker run --name mdd-postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=mdd_db -p 5432:5432 -d postgres:17
-```
-
-Pour arrêter / relancer le conteneur :
-
-```bash
-docker stop mdd-postgres
-docker start mdd-postgres
-```
-
-### Configuration
-
-1. Copier le fichier d'environnement :
-```bash
-cp .env.example .env
-```
-
-2. Les variables par défaut dans `.env` correspondent au conteneur Docker ci-dessus :
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/mdd_db?schema=public"
-AUTH_SECRET="your-secret-key-here-change-in-production"
-AUTH_URL="http://localhost:3000"
-```
-
-3. Initialiser la base de données :
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-### Lancement
-
-```bash
-npm run dev
-```
-
-L'application sera accessible sur [http://localhost:3000](http://localhost:3000).
-
-## Tech Stack
-
-- **Framework**: Next.js 16 (App Router)
-- **Langage**: TypeScript 5
-- **UI**: shadcn/ui + Tailwind CSS 4
-- **Base de données**: PostgreSQL
-- **ORM**: Prisma
-- **Validation**: Zod
-
-## Features
-
-- Authentification utilisateur (inscription/connexion)
-- Gestion de profil
-- Abonnement à des thèmes
-- Publication d'articles
-- Commentaires sur articles
-- Fil d'actualité personnalisé
-
-## Project Structure
-
-```
-P5-DFSJS/
-├── app/               # App Router (Next.js 16)
-│   ├── layout.tsx
-│   └── page.tsx
-├── components/        # Composants UI (shadcn/ui)
-│   └── ui/
-├── lib/               # Utilitaires
-│   └── utils.ts
-├── prisma/            # Database schema
-│   └── schema.prisma
-├── public/            # Static files
+```txt
+p5-dfsjs/
+├── front/                 # Application Next.js
+│   ├── app/               # App Router
+│   ├── components/        # Composants UI
+│   ├── hooks/             # Hooks React Query
+│   ├── lib/               # API client, schemas, middlewares
+│   └── tests/             # Tests Playwright
+├── back/                  # API NestJS
+│   ├── prisma/            # Schema, migrations, seed
+│   └── src/
+│       ├── common/        # Guards, decorators, filters
+│       ├── features/      # Auth, posts, topics, comments
+│       └── scripts/       # Scripts de test
+├── docker-compose.yml     # PostgreSQL local
+├── pnpm-workspace.yaml
 └── package.json
 ```
 
-## Documentation
+## Prerequis
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [shadcn/ui Documentation](https://ui.shadcn.com)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs)
+- Node.js 20 ou superieur
+- pnpm 9 ou superieur
+- Docker et Docker Compose
 
-## License
+## Installation
 
-MIT License
+```bash
+git clone https://github.com/JeffSilverface/p5-dfsjs.git
+cd p5-dfsjs
+pnpm install
+```
+
+## Configuration
+
+Creer un fichier `.env` a la racine du projet.
+
+Exemple de configuration locale :
+
+```env
+# PostgreSQL Docker
+POSTGRES_USER=mdd_user
+POSTGRES_PASSWORD=mdd_password
+POSTGRES_DB=mdd_db
+
+# Backend
+DATABASE_URL="postgresql://mdd_user:mdd_password@localhost:5432/mdd_db?schema=public"
+SESSION_SECRET="change-me-in-local-dev"
+FRONTEND_URL="http://localhost:3000"
+PORT=3001
+
+# Frontend
+NEXT_PUBLIC_API_URL="http://localhost:3001"
+
+# Tests e2e
+TEST_USER_EMAIL="test@test.com"
+TEST_USER_PASSWORD="Password1!"
+TEST_USER_USERNAME="testuser"
+```
+
+## Base De Donnees
+
+Lancer PostgreSQL avec Docker Compose :
+
+```bash
+pnpm docker:up
+```
+
+Generer le client Prisma et appliquer les migrations :
+
+```bash
+cd /back
+pnpm prisma generate
+pnpm prisma migrate deploy
+```
+
+Remplir la base avec des donnees de demo :
+
+```bash
+cd /back
+pnpm prisma db seed
+```
+
+## Lancement En Developpement
+
+Depuis la racine du projet :
+
+```bash
+pnpm dev
+```
+
+Cette commande lance :
+
+- PostgreSQL via Docker Compose
+- le backend NestJS sur `http://localhost:3001`
+- le frontend Next.js sur `http://localhost:3000`
+
+## Scripts Utiles
+
+| Commande                                | Description                             |
+| --------------------------------------- | --------------------------------------- |
+| `pnpm dev`                              | Lance Docker, le frontend et le backend |
+| `pnpm build`                            | Build le frontend et le backend         |
+| `pnpm lint`                             | Lance le lint sur les workspaces        |
+| `pnpm docker:up`                        | Lance PostgreSQL                        |
+| `pnpm docker:down`                      | Arrete les conteneurs Docker            |
+| `pnpm --filter @p5-dfsjs/back test`     | Lance les tests backend                 |
+| `pnpm --filter @p5-dfsjs/back test:cov` | Genere la couverture backend            |
+| `pnpm --filter @p5-dfsjs/front test`    | Lance les tests Playwright              |
+
+## Tests
+
+### Backend
+
+Les tests backend utilisent Jest et Supertest.
+
+```bash
+cd /back
+pnpm test
+pnpm test:cov
+```
+
+La couverture exclut les fichiers de bootstrap et de configuration comme `main.ts`, les `*.module.ts` et les scripts de maintenance.
+
+### Frontend
+
+Les tests frontend utilisent Playwright.
+
+```bash
+cd /front
+pnpm test
+```
+
+Les tests couvrent notamment :
+
+- l'inscription et la connexion
+- les redirections du middleware
+- les posts
+- les themes
+- les abonnements
+- le profil
+- les controles de securite API
+
+Certains tests Playwright utilisent une API mockee afin de verifier les parcours frontend sans dependre directement de la base de donnees.
+
+## Modele De Donnees
+
+Le modele Prisma repose sur les entites principales suivantes :
+
+- `User` : utilisateur inscrit
+- `Topic` : theme de programmation
+- `Article` : article publie par un utilisateur
+- `Comment` : commentaire associe a un article
+- `Subscription` : abonnement d'un utilisateur a un theme
+
+Les abonnements sont proteges par une cle composee `userId/topicId`, ce qui evite les doublons.
+
+## Securite
+
+- Mot de passe hash avec bcrypt
+- Sessions stockees cote serveur avec `express-session`
+- Cookie HTTP-only
+- CORS configure pour le frontend
+- Protection des routes backend via guards NestJS
+- Protection des pages frontend via middleware Next.js
+- Validation des entrees avec Zod
+- Tests API verifiant les acces non authentifies
+
+## Licence
+
+Projet realise dans un cadre de formation.
