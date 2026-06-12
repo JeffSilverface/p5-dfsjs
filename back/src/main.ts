@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ZodExceptionFilter } from './common/filters/zod-exception.filter';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import session from 'express-session';
 import passport from 'passport';
 import connectPgSimple from 'connect-pg-simple';
@@ -39,6 +40,17 @@ async function bootstrap() {
   });
 
   app.useGlobalFilters(new ZodExceptionFilter());
+
+  if (process.env.NODE_ENV !== 'production') {
+    const swaggerConfig = new DocumentBuilder()
+      .setTitle('p5-dfsjs API')
+      .setDescription('Forum API — auth, posts, comments, topics')
+      .setVersion('1.0')
+      .addCookieAuth('connect.sid')
+      .build();
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
+    SwaggerModule.setup('api', app, document);
+  }
 
   const port = config.get<number>('PORT') ?? 3001;
   await app.listen(port);
